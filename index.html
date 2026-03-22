@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蔡冬冬 - 用户运营专家</title>
+    <style>
+        /* ==================== 
+           Apple/Airbnb 风格变量定义 
+           ==================== */
+        :root {
+            /* 颜色：极致简约，黑白灰为主，点缀柔和蓝 */
+            --bg-body: #F5F5F7; /* Apple 浅灰背景 */
+            --bg-card: #FFFFFF;
+            --text-primary: #1D1D1F; /* Apple 深黑 */
+            --text-secondary: #86868B; /* Apple 次级灰 */
+            --accent-color: #0071E3; /* Apple 蓝，用于链接/高亮 */
+            --accent-hover: #0077ED;
+            --border-light: #E5E5E5;
+            
+            /* 阴影：多层柔和阴影，营造悬浮感 */
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.08);
+
+            /* 圆角与间距 */
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 8px;
+            --spacing-unit: 24px;
+            
+            /* 动效 */
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); /* Apple 式缓动 */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            /* 优先使用系统字体，确保苹果设备上的原生质感 */
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 16px;
+            letter-spacing: -0.01em;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+
+        /* ==================== 
+           布局容器 
+           ==================== */
+        .container {
+            max-width: 1080px;
+            margin: 60px auto;
+            padding: 0 24px;
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        /* ==================== 
+           侧边导航 (PC) / 顶部导航 (Mobile)
+           ==================== */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 40px 24px;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 40px;
+            flex-shrink: 0;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .nav-logo {
+            text-align: left;
+            margin-bottom: 40px;
+            padding-left: 12px;
+        }
+
+        .nav-logo h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .nav-logo p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .nav-item {
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-item:hover {
+            background-color: #F5F5F7;
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background-color: #1D1D1F; /* 激活态为黑色背景，白色文字，极简高级 */
+            color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .nav-item.active::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+
+        /* ==================== 
+           主内容区域 
+           ==================== */
+        .main-content {
+            flex: 1;
+            min-height: 600px;
+        }
+
+        .section-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 48px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 32px;
+            display: none;
+            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .section-card.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-light);
+            letter-spacing: -0.02em;
+        }
+
+        /* ==================== 
+           首页/个人简介样式 
+           ==================== */
+        .profile-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .avatar-wrapper {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            background-color: #F5F5F7;
+            box-shadow: var(--shadow-md);
+            position: relative;
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #E5E5E5;
+            color: #86868B;
+            font-size: 48px;
+            font-weight: 300;
+        }
+
+        .profile-info h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.03em;
+        }
+
+        .profile-tag {
+            display: inline-block;
+            background-color: #F5F5F7;
+            color: var(--text-primary);
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .summary-text {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 24px;
+            max-width: 90%;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--text-primary);
+            background: #FAFAFA;
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            border: 1px solid transparent;
+            transition: var(--transition);
+        }
+
+        .contact-item:hover {
+            background: white;
+            border-color: var(--border-light);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ==================== 
+           经历列表样式 (极简时间线) 
+           ==================== */
+        .timeline-item {
+            position: relative;
+            padding-left: 0;
+            margin-bottom: 40px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .exp-company {
+            font-size: 19px;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .exp-role {
+            font-size: 15px;
+            color: var(--accent-color);
+            font-weight: 500;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .exp-date {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            background: #F5F5F7;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .exp-details li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .exp-details li::before {
+            content: '•';
+            color: var(--text-secondary);
+            position: absolute;
+            left: 0;
+            font-size: 18px;
+            line-height: 1.4;
+            opacity: 0.5;
+        }
+
+        .highlight {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* 作品链接按钮 (Apple 风格) */
+        .project-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #1D1D1F;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 16px;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .project-link-btn:hover {
+            background-color: #333333;
+            transform: scale(1.02);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+        }
+
+        .project-link-btn svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+        }
+
+        /* ==================== 
+           技能标签云 
+           ==================== */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background: #F5F5F7;
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .skill-tag:hover {
+            background: white;
+            border-color: var(--border-light);
+            color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .skill-category {
+            margin-bottom: 24px;
+        }
+        
+        .skill-category h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* ==================== 
+           响应式适配 
+           ==================== */
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                margin: 20px auto;
+                padding: 0 20px;
+            }
+
+            .sidebar {
+                width: 100%;
+                position: static;
+                padding: 20px;
+                margin-bottom: 24px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                gap: 20px;
+            }
+
+            .nav-logo {
+                margin-bottom: 0;
+                padding-left: 0;
+            }
+
+            .nav-menu {
+                flex-direction: row;
+                overflow-x: auto;
+                padding-bottom: 4px;
+                scrollbar-width: none;
+                flex: 1;
+                justify-content: flex-end;
+            }
+            
+            .nav-menu::-webkit-scrollbar { display: none; }
+
+            .nav-item {
+                white-space: nowrap;
+                padding: 8px 14px;
+                font-size: 14px;
+            }
+            
+            .nav-item.active::after { display: none; }
+
+            .section-card {
+                padding: 32px 24px;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 24px;
+            }
+
+            .summary-text {
+                max-width: 100%;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .exp-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- 侧边导航 -->
+    <aside class="sidebar">
+        <div class="nav-logo">
+            <h1>蔡冬冬</h1>
+            <p>用户运营专家</p>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-item active" data-target="home">个人简介</div>
+            <div class="nav-item" data-target="experience">工作经历</div>
+            <div class="nav-item" data-target="projects">项目经历</div>
+            <div class="nav-item" data-target="education">教育背景</div>
+            <div class="nav-item" data-target="skills">技能特长</div>
+            <!-- 已移除：作品集导航 -->
+        </nav>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+        
+        <!-- 1. 个人简介 (已增加邮箱) -->
+        <section id="home" class="section-card active">
+            <h2 class="section-title">个人简介</h2>
+            <div class="profile-header">
+                <div class="avatar-wrapper">
+                    <img id="user-avatar" class="avatar-img" style="display: none;" alt="蔡冬冬头像">
+                    <div id="avatar-placeholder" class="avatar-placeholder">蔡</div>
+                </div>
+                <div class="profile-info">
+                    <h2>蔡冬冬</h2>
+                    <span class="profile-tag">5年私域全链路操盘 · 数据驱动增长 · AI智能体应用</span>
+                    <p class="summary-text">
+                        深耕用户运营领域5年，具备从0到1搭建私域流量池及精细化运营体系的实战经验。擅长基于RFM模型与用户标签体系进行分层运营，曾主导单场裂变活动新增用户3万+，沉淀私域流量40万+。精通数据驱动决策，通过构建“发现 - 策略 - 执行 - 复盘”闭环，显著提升用户留存率与交易规模。具备极强的跨界整合能力，成功将AI智能体（RAG）应用于销售场景，释放人力40%并提升转化率。
+                    </p>
+                    <div class="contact-grid">
+                        <div class="contact-item">📱 184-1915-3644</div>
+                        <div class="contact-item">📧 1390512377@qq.com</div>
+                        <div class="contact-item">📍 广东深圳南山区</div>
+                        <div class="contact-item">🎂 1997.12</div>
+                        <div class="contact-item">🎓 本科 · 广告学</div>
+                        <div class="contact-item">🇬🇧 雅思口语 6.0</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. 工作经历 -->
+        <section id="experience" class="section-card">
+            <h2 class="section-title">工作经历</h2>
+            
+            <div class="timeline-item">
+                <div class="exp-header">
+                    <span class="exp-company">深圳珊瑚草科技有限公司</span>
+                    <span class="exp-date">2023.11 – 2025.10</span>
+                </div>
+                <span class="exp-role">社群运营 / 私域负责人</span>
+                <ul class="exp-details">
+                    <li><span class="highlight">用户分层与标签体系建设：</span>基于RFM模型搭建动态用户分层体系，定义关键行为标签（准确率&gt;95%），针对不同层级用户制定差异化触达策略，使核心用户留存率提升30%。</li>
+                    <li><span class="highlight">全链路私域流量构建：</span>统筹APP、公众号及电商商城私域矩阵，整合小红书KOC招募等公域渠道，实现单月最高引流10万+，累计沉淀私域用户池40万+。</li>
+                    <li><span class="highlight">AI智能体运营与效能提升：</span>主导私域销售AI智能体（RAG架构）落地，制定知识库构建标准与质检流程，项目上线后私域转化率提升3%，人工服务效率释放40%。</li>
+                    <li><span class="highlight">活动裂变与转化闭环：</span>策划“老带新”裂变模型及618大促活动，单场活动获客3万+（成本1.9元/人），带来注册1万+及订单2000+，有效召回流失客户群。</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item">
+                <div class="exp-header">
+                    <span class="exp-company">FJ Dynamics (农机行业龙头企业)</span>
+                    <span class="exp-date">2021.12 – 2023.07</span>
+                </div>
+                <span class="exp-role">数字营销部 | CRM产品运营</span>
+                <ul class="exp-details">
+                    <li><span class="highlight">数据体系与线索管理：</span>主导Google Ads API与CRM系统集成，搭建Leads-to-Cash自动化流程，线索池规模扩至日均500+，线索转化率提升25%。</li>
+                    <li><span class="highlight">产品策略与体验优化：</span>建立账号评估标准与问题闭环机制，推动双周敏捷迭代；优化自动化营销模块（未跟进唤醒+EDM模板），使线索流失率从40%降至15%。</li>
+                    <li><span class="highlight">客户分级与培训体系：</span>开发高潜客户分级策略，提升高潜客户转化率20%；构建中英文产品知识库，组织30场专场培训，销售端咨询量下降50%。</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item">
+                <div class="exp-header">
+                    <span class="exp-company">深圳智催科技有限公司</span>
+                    <span class="exp-date">2019.10 – 2021.11</span>
+                </div>
+                <span class="exp-role">私域运营（英语课程）</span>
+                <ul class="exp-details">
+                    <li><span class="highlight">全域私域矩阵搭建：</span>构建微信生态+社媒全域矩阵，通过标准化SOP与分层触达，实现社群平均留存率75%+，低转高课程转化率稳定在10%（行业均值5%）。</li>
+                    <li><span class="highlight">场景化营销策略：</span>基于销售漏斗设计场景化触达剧本（痛点激发/限时逼单），个人单月最高转化10w，带领团队转化率超常规社群2倍。</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 3. 项目经历 (已嵌入小红书链接) -->
+        <section id="projects" class="section-card">
+            <h2 class="section-title">项目经历</h2>
+            
+            <div class="timeline-item">
+                <div class="exp-header">
+                    <span class="exp-company">小红书职场IP从0到1孵化与变现</span>
+                    <span class="exp-date">2024 – 2025</span>
+                </div>
+                <span class="exp-role">独立操盘手</span>
+                <ul class="exp-details">
+                    <li><span class="highlight">内容推荐策略优化：</span>拆解10+爆款笔记结构，建立标准化内容SOP，账号爆款率稳定在40%以上（超行业均值），单篇互动量突破4000+。</li>
+                    <li><span class="highlight">产品化变现闭环：</span>设计“AIGC周会PPT模板”产品，通过内容引流私域1000+，成交700+单，转化率达70%，验证了“内容 - 私域 - 交易”的高效链路。</li>
+                    <li style="margin-top: 16px;">
+                        <a href="https://www.xiaohongshu.com/user/profile/64b8c71b000000002b00ad02" target="_blank" class="project-link-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                            查看我的小红书主页作品
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 4. 教育背景 -->
+        <section id="education" class="section-card">
+            <h2 class="section-title">教育背景</h2>
+            <div class="timeline-item">
+                <div class="exp-header">
+                    <span class="exp-company">兰州财经大学</span>
+                    <span class="exp-date">2015.09 – 2019.06</span>
+                </div>
+                <span class="exp-role">广告学 | 本科</span>
+                <ul class="exp-details">
+                    <li>主修课程：市场营销、消费者行为学、品牌管理、数据分析基础。</li>
+                    <li>在校期间活跃于学生会外联部，具备早期团队协作与活动策划经验。</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 5. 技能特长 -->
+        <section id="skills" class="section-card">
+            <h2 class="section-title">技能特长</h2>
+            
+            <div class="skill-category">
+                <h4>Core Competencies</h4>
+                <div class="skills-grid">
+                    <span class="skill-tag">用户分层 (RFM)</span>
+                    <span class="skill-tag">标签体系搭建</span>
+                    <span class="skill-tag">私域流量运营</span>
+                    <span class="skill-tag">社群裂变增长</span>
+                    <span class="skill-tag">内容营销策略</span>
+                    <span class="skill-tag">A/B Test 实验</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h4>Tools & Tech</h4>
+                <div class="skills-grid">
+                    <span class="skill-tag">Excel 高级分析</span>
+                    <span class="skill-tag">CRM 系统管理</span>
+                    <span class="skill-tag">AI 智能体 (Coze/Dify)</span>
+                    <span class="skill-tag">RAG 知识库构建</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h4>Soft Skills</h4>
+                <div class="skills-grid">
+                    <span class="skill-tag">跨部门协同</span>
+                    <span class="skill-tag">项目管理</span>
+                    <span class="skill-tag">逻辑思维</span>
+                    <span class="skill-tag">英语沟通 (雅思6.0)</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<script>
+    /**
+     * 智能头像加载逻辑
+     * 按顺序尝试加载 avatar.png, avatar.jpg, avatar.jpeg
+     */
+    document.addEventListener('DOMContentLoaded', function() {
+        const imgElement = document.getElementById('user-avatar');
+        const placeholderElement = document.getElementById('avatar-placeholder');
+        
+        const extensions = ['png', 'jpg', 'jpeg'];
+        let loadIndex = 0;
+
+        function tryLoadImage() {
+            if (loadIndex >= extensions.length) {
+                return;
+            }
+
+            const ext = extensions[loadIndex];
+            const src = `avatar.${ext}`;
+            
+            const testImg = new Image();
+            
+            testImg.onload = function() {
+                imgElement.src = src;
+                imgElement.style.display = 'block';
+                placeholderElement.style.display = 'none';
+            };
+
+            testImg.onerror = function() {
+                loadIndex++;
+                tryLoadImage();
+            };
+
+            testImg.src = src;
+        }
+
+        tryLoadImage();
+
+        /**
+         * 导航栏切换逻辑 (SPA模式)
+         */
+        const navItems = document.querySelectorAll('.nav-item');
+        const sections = document.querySelectorAll('.section-card');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // 移除所有激活状态
+                navItems.forEach(nav => nav.classList.remove('active'));
+                sections.forEach(sec => sec.classList.remove('active'));
+
+                // 激活当前点击项
+                this.classList.add('active');
+
+                // 显示对应内容区块
+                const targetId = this.getAttribute('data-target');
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                    // 移动端自动滚动到顶部
+                    if (window.innerWidth <= 900) {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
