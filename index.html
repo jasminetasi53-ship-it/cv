@@ -1,767 +1,658 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>蔡冬冬 - 产品运营专家简历</title>
-    <style>
-        /* ==================== 
-           全局变量与重置 
-           ==================== */
-        :root {
-            --bg-color: #ffffff;
-            --text-main: #1a1a1a;
-            --text-secondary: #666666;
-            --brand-primary: #d946ef; /* 亮粉/紫 */
-            --brand-secondary: #8b5cf6; /* 紫色 */
-            --brand-accent: #22c55e; /* 绿色点缀 */
-            --card-bg: #f9fafb;
-            --border-color: #e5e7eb;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jasmine Tsai - Product Operations</title>
+<meta name="description" content="Jasmine Tsai's Portfolio - Product Operations Expert">
+<style>
+/* ====================
+1. Apple Design System 变量
+==================== */
+:root {
+  /* 颜色 - 苹果风 */
+  --bg-body: #f5f5f7;       /* 苹果浅灰背景 */
+  --bg-card: #ffffff;       /* 纯白卡片 */
+  --text-primary: #1d1d1f;  /* 近乎黑的主标题 */
+  --text-secondary: #86868b;/* 苹果标准灰正文 */
+  --text-tertiary: #a1a1a6; /* 更浅的辅助文字 */
+  
+  /* 品牌色 - 苹果蓝 (用于链接/高亮) */
+  --brand-blue: #0066cc;
+  --brand-blue-hover: #004499;
+  
+  /* 阴影与边框 */
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-pill: 999px;
+  
+  /* 动画 */
+  --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+/* ====================
+2. 全局重置
+==================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: var(--bg-body);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased; /* 让字体在Mac上更清晰 */
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
 
-        a { text-decoration: none; color: inherit; }
-        ul { list-style: none; }
+a { text-decoration: none; color: inherit; transition: var(--transition); }
+ul { list-style: none; }
 
-        /* ==================== 
-           布局容器 
-           ==================== */
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+/* ====================
+3. 顶部悬浮导航 (Apple Menu Bar Style)
+==================== */
+.nav-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 980px;
+  z-index: 1000;
+}
 
-        /* ==================== 
-           导航栏 
-           ==================== */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 1000;
-            transition: var(--transition);
-        }
+.nav-bar {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--radius-pill);
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(255,255,255,0.6);
+}
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px;
-        }
+.logo {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-        }
+.nav-links {
+  display: flex;
+  gap: 8px;
+}
 
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
+.nav-btn {
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+}
 
-        .nav-item {
-            cursor: pointer;
-            font-weight: 500;
-            color: var(--text-secondary);
-            position: relative;
-            padding: 5px 0;
-            transition: var(--transition);
-        }
+.nav-btn:hover {
+  color: var(--text-primary);
+  background: rgba(0,0,0,0.05);
+}
 
-        .nav-item:hover, .nav-item.active {
-            color: var(--text-main);
-        }
+.nav-btn.active {
+  color: var(--bg-body); /* 文字变浅以配合背景 */
+  background: var(--text-primary); /* 黑色背景表示选中 */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
 
-        .nav-item::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--brand-primary);
-            transition: var(--transition);
-        }
+/* 移动端适配导航 */
+@media (max-width: 768px) {
+  .nav-container {
+    top: auto;
+    bottom: 20px;
+    width: 90%;
+    max-width: 400px;
+  }
+  .logo { display: none; } /* 移动端隐藏Logo */
+  .nav-links {
+    width: 100%;
+    justify-content: space-around;
+    gap: 0;
+  }
+  .nav-btn {
+    padding: 10px;
+    font-size: 0.8rem;
+    border-radius: 12px;
+    background: transparent;
+  }
+  .nav-btn.active {
+    background: var(--brand-blue);
+    color: white;
+  }
+  .nav-btn span { display: none; } /* 移动端只显示图标？这里为了清晰保留文字，但缩小 */
+  .nav-btn span { display: block; font-size: 10px; }
+}
 
-        .nav-item:hover::after, .nav-item.active::after {
-            width: 100%;
-        }
+/* ====================
+4. 主内容布局
+==================== */
+.main-wrapper {
+  max-width: 980px;
+  margin: 120px auto 60px; /* 顶部留出导航空间 */
+  padding: 0 20px;
+}
 
-        /* 移动端菜单按钮 */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-        }
-        .menu-toggle span {
-            width: 25px;
-            height: 2px;
-            background: var(--text-main);
-            transition: var(--transition);
-        }
+@media (max-width: 768px) {
+  .main-wrapper { margin-top: 40px; margin-bottom: 100px; }
+}
 
-        /* ==================== 
-           主要内容区域 
-           ==================== */
-        main {
-            padding-top: 100px; /* 避开固定导航栏 */
-            min-height: 100vh;
-        }
+/* 板块通用样式 */
+.section {
+  display: none;
+  animation: fadeIn 0.6s ease-out;
+}
+.section.active { display: block; }
 
-        .section {
-            display: none; /* 默认隐藏所有部分 */
-            animation: fadeIn 0.5s ease-out;
-        }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-        .section.active {
-            display: block;
-        }
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 40px;
+  text-align: center;
+  color: var(--text-primary);
+}
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+/* ====================
+5. Hero Section (美式简历风格)
+==================== */
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 60px 40px;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 40px;
+}
 
-        /* ==================== 
-           首页 / 个人简介 
-           ==================== */
-        .hero-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 60px 0;
-        }
+/* 美式头像布局：上方或侧方，这里采用居中上方大圆图，显得自信专业 */
+.avatar-container {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 30px;
+  box-shadow: var(--shadow-lg);
+  border: 4px solid white;
+  background: #eee;
+  flex-shrink: 0;
+}
 
-        .avatar-container {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin-bottom: 30px;
-            border: 4px solid white;
-            box-shadow: var(--shadow-md);
-            background: #f0f0f0; /* 占位背景 */
-            position: relative;
-        }
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
-        .avatar-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: none; /* 默认隐藏，加载成功后显示 */
-        }
+/* 如果图片加载失败显示的占位符 */
+.avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e5e5ea;
+  color: #86868b;
+  font-size: 4rem;
+  font-weight: 600;
+}
 
-        .avatar-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: var(--brand-secondary);
-            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
-            font-weight: bold;
-        }
+.hero-name {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
 
-        .hero-title {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            letter-spacing: -1px;
-        }
+.hero-role {
+  font-size: 1.3rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  margin-bottom: 24px;
+}
 
-        .hero-tag {
-            font-size: 1.25rem;
-            color: var(--brand-primary);
-            font-weight: 600;
-            margin-bottom: 20px;
-            background: rgba(217, 70, 239, 0.1);
-            padding: 5px 15px;
-            border-radius: 20px;
-        }
+.hero-bio {
+  max-width: 600px;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
 
-        .hero-intro {
-            max-width: 700px;
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            margin-bottom: 40px;
-            line-height: 1.8;
-        }
+.contact-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
 
-        .contact-info {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-        }
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  background: #f5f5f7;
+  border-radius: var(--radius-pill);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  transition: var(--transition);
+}
 
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: var(--card-bg);
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            transition: var(--transition);
-        }
+.pill:hover {
+  background: #e5e5ea;
+  transform: scale(1.05);
+}
 
-        .contact-item:hover {
-            border-color: var(--brand-primary);
-            color: var(--brand-primary);
-            transform: translateY(-2px);
-        }
+.pill.status-leave {
+  background: #fff5f5;
+  color: #ff3b30; /* 苹果红 */
+}
 
-        /* ==================== 
-           通用卡片样式 
-           ==================== */
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 25px;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
+/* ====================
+6. 卡片列表风格 (工作经历/项目)
+==================== */
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--brand-secondary);
-            opacity: 0;
-            transition: var(--transition);
-        }
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  border: 1px solid rgba(0,0,0,0.02);
+}
 
-        .card:hover {
-            transform: translateY(-5px) scale(1.01);
-            box-shadow: var(--shadow-hover);
-            border-color: transparent;
-        }
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-md);
+}
 
-        .card:hover::before {
-            opacity: 1;
-        }
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
 
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+.card-company {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
 
-        .card-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
+.card-role {
+  font-size: 1.1rem;
+  color: var(--brand-blue);
+  font-weight: 500;
+  margin-top: 4px;
+}
 
-        .card-subtitle {
-            font-size: 1rem;
-            color: var(--brand-primary);
-            font-weight: 600;
-        }
+.card-date {
+  font-size: 0.95rem;
+  color: var(--text-tertiary);
+  font-weight: 500;
+  background: #f5f5f7;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+}
 
-        .card-date {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            background: #fff;
-            padding: 4px 10px;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
-        }
+.card-content ul {
+  padding-left: 20px;
+}
 
-        .card-content {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
+.card-content li {
+  margin-bottom: 12px;
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  list-style-type: disc;
+}
 
-        .card-content ul {
-            list-style: disc;
-            padding-left: 20px;
-            margin-top: 10px;
-        }
+.card-content strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
 
-        .card-content li {
-            margin-bottom: 8px;
-        }
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 20px;
+  color: var(--brand-blue);
+  font-weight: 500;
+  font-size: 1rem;
+}
 
-        .section-title {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 40px;
-            position: relative;
-            display: inline-block;
-        }
+.project-link:hover {
+  text-decoration: underline;
+  color: var(--brand-blue-hover);
+}
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background: var(--brand-primary);
-            border-radius: 2px;
-        }
+.project-link svg {
+  margin-left: 6px;
+  width: 18px;
+  height: 18px;
+}
 
-        /* ==================== 
-           技能特长 
-           ==================== */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
+/* ====================
+7. 技能网格
+==================== */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
 
-        .skill-category {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            transition: var(--transition);
-        }
+.skill-card {
+  background: var(--bg-card);
+  padding: 30px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
 
-        .skill-category:hover {
-            box-shadow: var(--shadow-md);
-            border-color: var(--brand-secondary);
-        }
+.skill-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-        .skill-cat-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+.tag {
+  padding: 8px 16px;
+  background: #f5f5f7;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: var(--transition);
+}
 
-        .skill-tag {
-            background: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            border: 1px solid var(--border-color);
-            transition: var(--transition);
-        }
+.tag:hover {
+  background: var(--text-primary);
+  color: white;
+}
 
-        .skill-tag:hover {
-            background: var(--brand-primary);
-            color: white;
-            border-color: var(--brand-primary);
-            transform: scale(1.05);
-        }
-
-        /* ==================== 
-           响应式适配 
-           ==================== */
-        @media (max-width: 768px) {
-            .nav-links {
-                position: fixed;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: white;
-                flex-direction: column;
-                padding: 20px;
-                border-bottom: 1px solid var(--border-color);
-                transform: translateY(-150%);
-                transition: var(--transition);
-                box-shadow: var(--shadow-md);
-            }
-
-            .nav-links.open {
-                transform: translateY(0);
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
-
-            .hero-title {
-                font-size: 2.2rem;
-            }
-
-            .card-header {
-                flex-direction: column;
-            }
-            
-            .container {
-                padding: 0 15px;
-            }
-        }
-    </style>
+/* 打印优化 */
+@media print {
+  .nav-container { display: none; }
+  .main-wrapper { margin: 0; max-width: 100%; }
+  .section { display: block !important; margin-bottom: 40px; }
+  .card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+  body { background: white; }
+}
+</style>
 </head>
 <body>
 
-    <!-- 导航栏 -->
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">Jasmine Tsai</div>
-                <div class="menu-toggle" id="mobile-menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <ul class="nav-links" id="nav-links">
-                    <li class="nav-item active" data-target="home">个人简介</li>
-                    <li class="nav-item" data-target="experience">工作经历</li>
-                    <li class="nav-item" data-target="projects">项目经历</li>
-                    <li class="nav-item" data-target="education">教育背景</li>
-                    <li class="nav-item" data-target="skills">技能特长</li>
-                </ul>
-            </nav>
+<!-- 1. 顶部悬浮导航 -->
+<div class="nav-container">
+  <nav class="nav-bar">
+    <div class="logo">Jasmine Tsai</div>
+    <div class="nav-links">
+      <div class="nav-btn active" data-target="home">
+        <span>简介</span>
+      </div>
+      <div class="nav-btn" data-target="experience">
+        <span>经历</span>
+      </div>
+      <div class="nav-btn" data-target="projects">
+        <span>项目</span>
+      </div>
+      <div class="nav-btn" data-target="skills">
+        <span>技能</span>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<!-- 2. 主内容区 -->
+<main class="main-wrapper">
+
+  <!-- 首页 / 个人简介 (美式布局) -->
+  <section id="home" class="section active">
+    <div class="hero-section">
+      <!-- 照片容器 -->
+      <div class="avatar-container">
+        <!-- 
+           【重要】src="images/avatar.png" 
+           请确保你的图片放在仓库的 images 文件夹下，或者根目录下并修改此处路径
+        -->
+        <img src="images/avatar.png" alt="Jasmine Tsai" class="avatar-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="avatar-placeholder" style="display: none;">JT</div>
+      </div>
+
+      <h1 class="hero-name">蔡冬冬 (Jasmine)</h1>
+      <p class="hero-role">产品运营专家 | 增长策略 | 自动化体系搭建</p>
+      
+      <p class="hero-bio">
+        拥有 5 年 + 互联网及数字化产品运营经验。擅长从 0 到 1 搭建私域流量池及自动化服务流程。<br>
+        曾主导 CRM 系统与 Google Ads API 集成，显著提升线索转化率 35%。<br>
+        致力于通过数据驱动与技术创新，实现业务高效增长。
+      </p>
+
+      <div class="contact-pills">
+        <div class="pill">📱 184-1915-3644</div>
+        <div class="pill">📧 1390512377@qq.com</div>
+        <div class="pill status-leave">📍 已离职 (随时到岗)</div>
+        <div class="pill">🎂 1997</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 工作经历 -->
+  <section id="experience" class="section">
+    <h2 class="section-title">工作经历</h2>
+    <div class="card-list">
+      
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-company">深圳珊瑚草科技有限公司</div>
+            <div class="card-role">社群运营专家</div>
+          </div>
+          <div class="card-date">2023.11 – 2025.10</div>
         </div>
-    </header>
+        <div class="card-content">
+          <ul>
+            <li><strong>私域体系搭建：</strong>整合全域资源策划“老带新”裂变，单场获客 3 万+ (成本 1.9 元/人)，累计沉淀用户 40 万+，留存率提升 30%。</li>
+            <li><strong>用户分层运营：</strong>基于 RFM 模型制定差异化策略，核心用户留存率提升 20%，复购率突破 80%。</li>
+            <li><strong>AI 智能体落地：</strong>主导 RAG 架构 AI 销售助手项目，转化率提升 3%，人工效率释放 40%。</li>
+          </ul>
+        </div>
+      </div>
 
-    <main class="container">
-        
-        <!-- 1. 首页 / 个人简介 -->
-        <section id="home" class="section active">
-            <div class="hero-section">
-                <div class="avatar-container">
-                    <div class="avatar-placeholder" id="avatar-placeholder">蔡</div>
-                    <img src="" alt="蔡冬冬" class="avatar-img" id="avatar-img">
-                </div>
-                
-                <h1 class="hero-title">蔡冬冬</h1>
-                <div class="hero-tag">平台运营与体系建设专家</div>
-                
-                <p class="hero-intro">
-                    拥有5年+互联网及数字化产品运营经验，擅长从0到1搭建私域流量池及自动化服务流程。
-                    具备深厚的平台日常运营支持能力，曾主导CRM系统与Google Ads API集成项目，显著提升线索转化率35%。
-                    致力于通过数据驱动与技术创新，实现业务增长与效能提升。
-                </p>
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-company">FJ Dynamics (农机行业龙头)</div>
+            <div class="card-role">CRM 产品运营</div>
+          </div>
+          <div class="card-date">2021.12 – 2023.07</div>
+        </div>
+        <div class="card-content">
+          <ul>
+            <li><strong>系统集成：</strong>主导 Google Ads API 集成，搭建 Leads-to-Cash 自动化流程，线索转化率提升 35%。</li>
+            <li><strong>流程优化：</strong>设计自动化唤醒策略，将线索流失率从 40% 降至 15%。</li>
+            <li><strong>跨部门协同：</strong>推动双周敏捷迭代，构建中英文知识库，销售咨询量下降 50%。</li>
+          </ul>
+        </div>
+      </div>
 
-                <div class="contact-info">
-                    <div class="contact-item">📱 18419153644</div>
-                    <div class="contact-item">📧 1390512377@qq.com</div>
-                    <div class="contact-item">📍 已离职</div>
-                    <div class="contact-item">🎂 1997-12-13</div>
-                </div>
-            </div>
-        </section>
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-company">深圳智催科技有限公司</div>
+            <div class="card-role">私域运营</div>
+          </div>
+          <div class="card-date">2019.10 – 2021.11</div>
+        </div>
+        <div class="card-content">
+          <ul>
+            <li><strong>全生命周期管理：</strong>设计场景化触达剧本，个人最高单月转化业绩 10w+。</li>
+            <li><strong>矩阵运营：</strong>构建微信生态 + 社媒体系，社群平均留存率 75%+ (远超行业均值)。</li>
+          </ul>
+        </div>
+      </div>
 
-        <!-- 2. 工作/项目经历 -->
-        <section id="experience" class="section">
-            <h2 class="section-title">工作经历</h2>
-            
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">深圳珊瑚草科技有限公司</div>
-                        <div class="card-subtitle">社群运营</div>
-                    </div>
-                    <div class="card-date">2023.11 - 2025.10</div>
-                </div>
-                <div class="card-content">
-                    <ul>
-                        <li><strong>私域体系搭建：</strong>负责APP、公众号、电商商城等全域私域矩阵运营。整合小红书KOC与公域资源，策划“老带新”裂变，单场获客3万+（成本1.9元/人），累计沉淀用户40万+，留存率提升30%。</li>
-                        <li><strong>用户分层与触达：</strong>基于RFM模型搭建动态分层体系，制定差异化策略（Push/激励/活动），核心用户留存率提升20%，复购率提升至80%+。</li>
-                        <li><strong>AI智能体落地：</strong>主导私域销售AI智能体（RAG架构）项目，构建知识库与质检流程。上线后转化率提升3%，人工效率释放40%。</li>
-                        <li><strong>活动策划与转化：</strong>策划618大促及节日活动，设计场景化触达剧本，转化率超常规社群2倍，月均转化金融资产50万+。</li>
-                    </ul>
-                </div>
-            </div>
+    </div>
+  </section>
 
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">FJ Dynamics (农机行业龙头)</div>
-                        <div class="card-subtitle">CRM产品运营</div>
-                    </div>
-                    <div class="card-date">2021.12 - 2023.07</div>
-                </div>
-                <div class="card-content">
-                    <ul>
-                        <li><strong>CRM建设与优化：</strong>深度参与CRM平台建设，主导Google Ads API集成项目，从0到1搭建Leads-to-Cash全自动化流程，线索转化率提升35%。</li>
-                        <li><strong>用户体验闭环：</strong>建立用户行为跟踪机制，针对“未跟进线索”设计自动化唤醒策略，线索流失率从40%降至15%。</li>
-                        <li><strong>跨部门协同：</strong>担任海外销售与产研团队桥梁，推动双周敏捷迭代，将业务痛点转化为产品需求，显著提升平台适配度。</li>
-                        <li><strong>培训与知识库：</strong>从0构建中英文产品知识库，输出标准化SOP，组织30+场培训，销售端咨询量下降50%。</li>
-                    </ul>
-                </div>
-            </div>
+  <!-- 项目经历 -->
+  <section id="projects" class="section">
+    <h2 class="section-title">重点项目</h2>
+    <div class="card-list">
+      
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-company">小红书职场 IP 孵化与变现</div>
+            <div class="card-role">独立操盘</div>
+          </div>
+          <div class="card-date">2024.02 – 至今</div>
+        </div>
+        <div class="card-content">
+          <p style="margin-bottom:15px; color:var(--text-secondary)">从 0 到 1 打造职场 AIGC 垂类账号，实现内容到产品的商业闭环。</p>
+          <ul>
+            <li><strong>爆款策略：</strong>建立标准化 SOP，爆款率稳定在 40%+，单篇互动破 4000+。</li>
+            <li><strong>商业变现：</strong>设计虚拟产品引流私域 1000+，成交 700+ 单，转化率高达 70%。</li>
+          </ul>
+          <a href="https://www.xiaohongshu.com/user/profile/64b8c71b000000002b00ad02" target="_blank" class="project-link">
+            查看主页 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+          </a>
+        </div>
+      </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">深圳智催科技有限公司</div>
-                        <div class="card-subtitle">私域运营</div>
-                    </div>
-                    <div class="card-date">2019.10 - 2021.11</div>
-                </div>
-                <div class="card-content">
-                    <ul>
-                        <li><strong>全生命周期管理：</strong>基于销售漏斗设计场景化触达剧本，实施限时逼单与专属权益，个人最高单月转化业绩10w+，成为团队标杆。</li>
-                        <li><strong>全域矩阵运营：</strong>构建微信生态+社媒运营体系，设计标准化SOP，社群平均留存率75%+（远超行业均值50%）。</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-company">私域销售 AI 客服 (RAG 架构)</div>
+            <div class="card-role">项目负责人</div>
+          </div>
+          <div class="card-date">2025.07 – 2025.10</div>
+        </div>
+        <div class="card-content">
+          <ul>
+            <li><strong>知识库构建：</strong>清洗历史数据构建向量库，利用 Coze/Gemini 优化检索策略。</li>
+            <li><strong>人机协作：</strong>嵌入企微侧边栏，设计“AI 预处理 + 人工复核”流程。</li>
+            <li><strong>成果：</strong>转化率提升 3%，人工效率释放 40%。</li>
+          </ul>
+        </div>
+      </div>
 
-                <!-- 3. 项目经历 -->
-        <section id="projects" class="section">
-            <h2 class="section-title">项目经历</h2>
+    </div>
+  </section>
 
-            <!-- 1. 小红书项目 (已移至第一位) -->
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">小红书职场IP从0到1孵化与变现</div>
-                        <div class="card-subtitle">独立操盘</div>
-                    </div>
-                    <div class="card-date">2024.02 - 2025.11</div>
-                </div>
-                <div class="card-content">
-                    <ul>
-                        <li><strong>内容策略：</strong>拆解爆款结构，建立标准化内容SOP，账号爆款率稳定在40%以上，单篇互动破4000+。</li>
-                        <li><strong>变现闭环：</strong>设计AIGC周会PPT模板虚拟产品，引流私域1000+，成交700+单，转化率高达70%。</li>
-                    </ul>
-        
-                    <!-- 黑色风格按钮 -->
-                    <a href="https://www.xiaohongshu.com/user/profile/64b8c71b000000002b00ad02" target="_blank" class="project-link-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                        查看我的小红书主页作品
-                    </a>
-                </div>
-            </div>
+  <!-- 技能特长 -->
+  <section id="skills" class="section">
+    <h2 class="section-title">技能栈</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-title">🚀 核心运营</div>
+        <div class="tags">
+          <span class="tag">私域流量</span>
+          <span class="tag">用户分层</span>
+          <span class="tag">A/B Test</span>
+          <span class="tag">活动策划</span>
+          <span class="tag">增长黑客</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-title">💻 技术工具</div>
+        <div class="tags">
+          <span class="tag">CRM 系统</span>
+          <span class="tag">Google Ads API</span>
+          <span class="tag">AIGC/RAG</span>
+          <span class="tag">数据分析</span>
+          <span class="tag">SQL/Python</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-title">🤝 软技能</div>
+        <div class="tags">
+          <span class="tag">跨部门协同</span>
+          <span class="tag">敏捷管理</span>
+          <span class="tag">团队培训</span>
+          <span class="tag">英语流利</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            <!-- 2. 私域销售AI客服项目 (保持第二位) -->
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">私域销售AI客服落地项目 (RAG架构)</div>
-                        <div class="card-subtitle">项目负责人</div>
-                    </div>
-                    <div class="card-date">2025.07 - 2025.10</div>
-                </div>
-                <div class="card-content">
-                    <p><strong>背景：</strong>解决私域销售响应慢、专业知识不均及人力成本高的问题。</p>
-                    <ul>
-                        <li><strong>知识库构建：</strong>清洗历史聊天记录与产品手册，构建高质量向量知识库。</li>
-                        <li><strong>智能体调试：</strong>利用Coze/Gemini优化Prompt与RAG检索策略，确保回答准确率。</li>
-                        <li><strong>流程嵌入：</strong>将AI嵌入企微侧边栏，设计“AI预处理+人工复核”的人机协作流程。</li>
-                        <li><strong>成果：</strong>私域转化率提升3%，人工服务效率释放40%。</li>
-                    </ul>
-                </div>
-            </div>
+</main>
 
-            <!-- 3. CRM系统项目 (已移至第三位) -->
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">CRM系统与Google Ads API集成项目</div>
-                        <div class="card-subtitle">产品运营</div>
-                    </div>
-                    <div class="card-date">2021.03 - 2023.03</div>
-                </div>
-                <div class="card-content">
-                    <p><strong>背景：</strong>原有线索流转依赖人工，效率低且易出错，导致高流失率。</p>
-                    <ul>
-                        <li><strong>需求梳理：</strong>调研痛点，梳理Leads-to-Cash全流程，输出详细需求文档。</li>
-                        <li><strong>测试验收：</strong>协调产研多轮测试，确保API接口稳定性与数据准确性。</li>
-                        <li><strong>自动化策略：</strong>设计线索自动分配与超时预警机制，实现秒级入库。</li>
-                        <li><strong>成果：</strong>日均自动处理线索500+，转化率提升35%，流失率降至15%以内。</li>
-                    </ul>
-                </div>
-            </div>
+<script>
+// 简单的标签页切换逻辑
+document.addEventListener('DOMContentLoaded', () => {
+  const navBtns = document.querySelectorAll('.nav-btn');
+  const sections = document.querySelectorAll('.section');
 
-        </section>
+  function switchTab(targetId) {
+    // 更新按钮状态
+    navBtns.forEach(btn => {
+      if(btn.dataset.target === targetId) btn.classList.add('active');
+      else btn.classList.remove('active');
+    });
 
-        <!-- 4. 教育背景 -->
-        <section id="education" class="section">
-            <h2 class="section-title">教育背景</h2>
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">兰州财经大学</div>
-                        <div class="card-subtitle">广告学 | 本科</div>
-                    </div>
-                    <div class="card-date">2015.09 - 2019.06</div>
-                </div>
-                <div class="card-content">
-                    <p><strong>相关课程：</strong>市场营销、消费者行为学、广告策划、数据分析基础</p>
-                </div>
-            </div>
-        </section>
+    // 更新内容显示
+    sections.forEach(sec => {
+      if(sec.id === targetId) sec.classList.add('active');
+      else sec.classList.remove('active');
+    });
+    
+    // 滚动到顶部 (移动端体验更好)
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
-        <!-- 5. 技能特长 -->
-        <section id="skills" class="section">
-            <h2 class="section-title">技能特长</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <div class="skill-cat-title">🚀 核心运营能力</div>
-                    <div class="skill-tags">
-                        <span class="skill-tag">私域流量运营</span>
-                        <span class="skill-tag">用户分层 (RFM)</span>
-                        <span class="skill-tag">A/B Testing</span>
-                        <span class="skill-tag">全生命周期管理</span>
-                        <span class="skill-tag">活动策划</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <div class="skill-cat-title">💻 技术与工具</div>
-                    <div class="skill-tags">
-                        <span class="skill-tag">CRM系统集成</span>
-                        <span class="skill-tag">Google Ads API</span>
-                        <span class="skill-tag">AIGC内容生成</span>
-                        <span class="skill-tag">RAG架构应用</span>
-                        <span class="skill-tag">数据分析</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <div class="skill-cat-title">🤝 软技能</div>
-                    <div class="skill-tags">
-                        <span class="skill-tag">跨部门协同</span>
-                        <span class="skill-tag">需求转化</span>
-                        <span class="skill-tag">知识库建设</span>
-                        <span class="skill-tag">团队培训</span>
-                        <span class="skill-tag">敏捷迭代</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+  navBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      switchTab(btn.dataset.target);
+    });
+  });
 
-    </main>
-
-    <script>
-        // ==================== 
-        // 1. 栏目切换逻辑 (单页应用)
-        // ====================
-        const navItems = document.querySelectorAll('.nav-item');
-        const sections = document.querySelectorAll('.section');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navLinks = document.getElementById('nav-links');
-
-        function switchSection(targetId) {
-            // 更新导航状态
-            navItems.forEach(item => {
-                if (item.dataset.target === targetId) {
-                    item.classList.add('active');
-                } else {
-                    item.classList.remove('active');
-                }
-            });
-
-            // 切换内容显示
-            sections.forEach(section => {
-                if (section.id === targetId) {
-                    section.classList.add('active');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                } else {
-                    section.classList.remove('active');
-                }
-            });
-
-            // 移动端点击后自动关闭菜单
-            if (window.innerWidth <= 768) {
-                navLinks.classList.remove('open');
-            }
-        }
-
-        // 绑定导航点击事件
-        navItems.forEach(item => {
-            item.addEventListener('click', () => {
-                switchSection(item.dataset.target);
-            });
-        });
-
-        // 移动端菜单切换
-        mobileMenu.addEventListener('click', () => {
-            navLinks.classList.toggle('open');
-        });
-
-        // ==================== 
-        // 2. 头像优先级探测函数
-        // ====================
-        function loadAvatar() {
-            const imgElement = document.getElementById('avatar-img');
-            const placeholderElement = document.getElementById('avatar-placeholder');
-            
-            // 定义尝试加载的图片顺序
-            const imageSources = ['avatar.png', 'avatar.jpg', 'avatar.jpeg'];
-            let currentIndex = 0;
-
-            function tryLoadNext() {
-                if (currentIndex >= imageSources.length) {
-                    // 如果所有图片都失败，保持占位符显示
-                    console.log('未找到本地头像图片，显示默认占位符。');
-                    return;
-                }
-
-                const currentSrc = imageSources[currentIndex];
-                const testImg = new Image();
-                
-                testImg.onload = function() {
-                    // 加载成功
-                    imgElement.src = currentSrc;
-                    imgElement.style.display = 'block';
-                    placeholderElement.style.display = 'none';
-                    console.log(`成功加载头像: ${currentSrc}`);
-                };
-
-                testImg.onerror = function() {
-                    // 加载失败，尝试下一个
-                    currentIndex++;
-                    tryLoadNext();
-                };
-
-                // 开始加载测试
-                testImg.src = currentSrc;
-            }
-
-            tryLoadNext();
-        }
-
-        // 页面加载完成后执行头像探测
-        window.addEventListener('DOMContentLoaded', loadAvatar);
-
-    </script>
+  // 支持 URL Hash 直接访问
+  const hash = window.location.hash.slice(1);
+  if(hash && document.getElementById(hash)) {
+    switchTab(hash);
+  }
+});
+</script>
 </body>
 </html>
