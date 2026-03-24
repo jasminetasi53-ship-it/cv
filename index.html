@@ -188,38 +188,56 @@ ul { list-style: none; }
 }
 
 /* 美式头像布局：上方或侧方，这里采用居中上方大圆图，显得自信专业 */
+.avatar-wrapper {
+  /* 居中布局 */
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
 .avatar-container {
-  width: 180px;
-  height: 180px;
+  width: 200px;  /* 稍微调大一点，更显眼 */
+  height: 200px;
   border-radius: 50%;
   overflow: hidden;
-  margin-bottom: 30px;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* 更柔和的阴影 */
   border: 4px solid white;
-  background: #eee;
-  flex-shrink: 0;
+  background: #fff;
+  position: relative;
+  /* 关键：防止图片变形 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .avatar-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* 关键属性：cover 会填满但可能裁剪，contain 会完整显示但有留白 */
+  /* 这里我们用 object-position 来微调人脸位置 */
+  object-fit: cover; 
+  object-position: center top; /* 优先保证头部在中间，如果脸被切，改成 center */
   display: block;
+  transition: transform 0.5s ease;
 }
 
-/* 如果图片加载失败显示的占位符 */
+/* 鼠标悬停时轻微放大，增加互动感 */
+.avatar-container:hover .avatar-img {
+  transform: scale(1.05);
+}
+
 .avatar-placeholder {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #e5e5ea;
+  background: #f5f5f7;
   color: #86868b;
   font-size: 4rem;
   font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
-
 .hero-name {
   font-size: 3rem;
   font-weight: 700;
@@ -449,16 +467,20 @@ ul { list-style: none; }
   <!-- 首页 / 个人简介 (美式布局) -->
   <section id="home" class="section active">
     <div class="hero-section">
-      <!-- 照片容器 -->
-      <div class="avatar-container">
-        <!-- 
-           【重要】src="images/avatar.png" 
-           请确保你的图片放在仓库的 images 文件夹下，或者根目录下并修改此处路径
-        -->
-        <img src="avatar.png" alt="Jasmine Tsai" class="avatar-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div class="avatar-placeholder" style="display: none;">JT</div>
+           <!-- 照片容器 (领英风格优化版) -->
+      <div class="avatar-wrapper">
+        <div class="avatar-container">
+          <!-- 
+             【重要】如果你的脸被切掉了，尝试修改下面的 object-position 
+             方法 A: 在 style 里改 (推荐)
+             方法 B: 在这里直接加 style="object-position: center 20%;" 
+          -->
+          <img src="avatar.png" alt="Jasmine Tsai" class="avatar-img" 
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          
+          <div class="avatar-placeholder" style="display: none;">JT</div>
+        </div>
       </div>
-
       <h1 class="hero-name">蔡冬冬 (Jasmine)</h1>
       <p class="hero-role">产品运营专家 | 增长策略 | 自动化体系搭建</p>
       
